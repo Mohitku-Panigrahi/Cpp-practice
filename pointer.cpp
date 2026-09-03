@@ -5,4 +5,5 @@ int main(){
     int *ptr = &a;
     ptr++;
     cout<<*ptr<<endl;
+    
 }
