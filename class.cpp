@@ -1,5 +1,5 @@
-#include<iostream>
-using namespace std;
+// #include<iostream>
+// using namespace std;
 // int main(){
 //     // cout<<"Hello..."<<endl;
 //     // cout<<9876<<endl;
@@ -58,14 +58,14 @@ using namespace std;
 // )
 
 
-cout << setw(15)<< "Name" 
-     <<setw(10) <<"Roll no"
-     <<setw(12) <<"Marlks"<< endl;
-cout << setfill('-') << setw(37) << "" << endl; 
-/// reset fill character
-cout<< setfill(' ');
-/// left +setw() + fixed + setprecision()
-cout << left << setw(15) << name << setw(10)<< rollNo
-     <<fixed << setprecison(2)
-     << setw(12) << marks << endl;
-cout<< endl;
+// cout << setw(15)<< "Name" 
+//      <<setw(10) <<"Roll no"
+//      <<setw(12) <<"Marlks"<< endl;
+// cout << setfill('-') << setw(37) << "" << endl; 
+// /// reset fill character
+// cout<< setfill(' ');
+// /// left +setw() + fixed + setprecision()
+// cout << left << setw(15) << name << setw(10)<< rollNo
+//      <<fixed << setprecison(2)
+//      << setw(12) << marks << endl;
+// cout<< endl;
