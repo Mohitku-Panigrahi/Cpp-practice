@@ -12,6 +12,15 @@ public:
         cout<<"Enter name and section"<<endl;
         cin>>name>>section;
     }
+    student(int roll,int regd,string n,string sec){
+        rollNo=roll;
+        regdNum=regd;
+        name=n;
+        section = sec;
+    }
+    ~student(){
+        cout<<"Destructor called"<<endl;
+    }
     void display(){
         cout<<"Entered value "<<endl;
         cout<<rollNo<<endl;
@@ -21,6 +30,7 @@ public:
     }
 };
 int main(){
-    student obj;
+    student obj,obj1(2,123,"acs","IKL");
     obj.display();
+    obj1.display();
 }
