@@ -21,5 +21,6 @@ public:
     }
 };
 int main(){
-    
+    student obj;
+    obj.display();
 }
