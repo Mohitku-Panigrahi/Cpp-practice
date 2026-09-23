@@ -1,6 +1,19 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
+int secondLowest(int arr[], int n) {
+
+    sort(arr, arr + n);
+
+    for (int i = 1; i < n; i++) {
+
+        if (arr[i] != arr[0]) {
+            return arr[i];
+        }
+    }
+
+    return -1;
+}
 
 int secondLowest(int arr[], int n) {
 
