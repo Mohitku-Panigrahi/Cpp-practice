@@ -6,7 +6,7 @@ class abc{
     abc(int a,int b,int c){
         x=a;y=b;z=c;
     }
-    void operator~() //operator function
+    void operator-() //operator function
     {
         x = -x; y=-y;z = -z;
     }
@@ -17,9 +17,11 @@ class abc{
 int main(){
     abc s1(10,-20,30);
     s1.display();
-    ~s1;//sir has written -s but its showing error in my vs
+    -s1;//interchanging - with ~ will also work 
     s1.display();
+    
 }
+
 //  git add .
 //  git commit --m "hii"
 //  git push 
