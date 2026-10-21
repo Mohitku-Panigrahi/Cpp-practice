@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C++ Mid-Term Handwritten Notes – Units I–III</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1f2a5a; --red:#c0392b; --green:#1e8449; --blue:#1f5fa8; --purple:#7d3c98; --orange:#d35400;
+  --paper:#fffef6; --line:#cfe3f1; --margin:#e8a3a3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#d9d3c1;
+  font-family:'Kalam','Patrick Hand',cursive;
+  color:var(--ink);
+  font-size:17px;
+  line-height:30px;
+  padding:24px 12px;
+}
+.notebook{
+  max-width:920px;margin:0 auto 30px;
+  background:
+    linear-gradient(90deg,transparent 62px,var(--margin) 62px,var(--margin) 64px,transparent 64px),
+    repeating-linear-gradient(to bottom,var(--paper) 0,var(--paper) 29px,var(--line) 29px,var(--line) 30px);
+  box-shadow:0 6px 24px rgba(0,0,0,.25);
+  border-radius:4px;
+  padding:34px 34px 40px 88px;
+  position:relative;
+}
+.notebook::before{
+  content:"";position:absolute;left:18px;top:40px;bottom:40px;width:16px;
+  background:radial-gradient(circle,#b9b29c 0 6px,transparent 7px) 0 0/16px 90px repeat-y;
+}
+/* ---------- Cover ---------- */
+.cover{text-align:center;padding:10px 0 6px}
+.cover .sub{font-family:'Caveat',cursive;font-size:26px;color:var(--purple)}
+.cover h1{
+  font-family:'Caveat',cursive;font-size:64px;line-height:64px;color:var(--ink);
+  margin:12px 0 4px;letter-spacing:1px;
+}
+.cover h1 span{color:var(--red)}
+.cover .tagline{font-size:19px}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.badge{font-family:'Caveat',cursive;font-size:22px;font-weight:700;border:2.5px solid;border-radius:255px 15px 225px 15px/15px 225px 15px 255px;padding:0 16px;line-height:36px}
+.b1{color:var(--blue);background:#e3f0ff}.b2{color:var(--green);background:#e5f7e8}.b3{color:var(--orange);background:#fff0dc}.b4{color:var(--purple);background:#f4e8fb}
+/* ---------- Headings ---------- */
+.unit{
+  font-family:'Caveat',cursive;font-size:44px;line-height:50px;font-weight:700;color:#fff;
+  background:var(--ink);padding:6px 22px;margin:30px -10px 6px;
+  border-radius:6px 30px 6px 30px;transform:rotate(-.6deg);
+  box-shadow:3px 4px 0 rgba(0,0,0,.2);
+}
+.unit small{display:block;font-size:22px;color:#ffe08a;line-height:26px;font-weight:500}
+.unit.u2{background:#145a32}.unit.u3{background:#6c3483}.unit.ex{background:#a04000}
+h2{
+  font-family:'Caveat',cursive;font-size:34px;line-height:40px;color:var(--red);
+  margin:28px 0 4px;display:inline-block;
+  background:linear-gradient(transparent 62%,#ffe66d 62%,#ffe66d 92%,transparent 92%);
+  padding-right:10px;
+}
+h3{
+  font-family:'Caveat',cursive;font-size:26px;line-height:30px;color:var(--blue);margin:14px 0 2px;
+  text-decoration:underline wavy #9cc4ef;text-underline-offset:5px;
+}
+p{margin:0 0 6px}
+b,strong{color:var(--red);font-weight:700}
+em{color:var(--green);font-style:normal;font-weight:700}
+.hl{background:#fff176;padding:0 4px;border-radius:3px}
+.hl2{background:#b9f6ca;padding:0 4px;border-radius:3px}
+.hl3{background:#ffcdd2;padding:0 4px;border-radius:3px}
+ul,ol{margin:2px 0 8px 26px}
+li{margin:0}
+li::marker{color:var(--red)}
+ul.star{list-style:none;margin-left:6px}
+ul.star li::before{content:"★ ";color:#e6a700}
+ul.arrow{list-style:none;margin-left:6px}
+ul.arrow li::before{content:"➜ ";color:var(--green);font-weight:700}
+/* ---------- Boxes ---------- */
+.box{
+  margin:10px 0 12px;padding:6px 16px;line-height:28px;
+  border:2.5px solid;border-radius:14px 4px 16px 6px;position:relative;
+}
+.box .t{font-family:'Caveat',cursive;font-size:25px;font-weight:700;display:block;line-height:30px}
+.key{border-color:#e6a700;background:#fff8d6}.key .t{color:#b37d00}
+.warn{border-color:var(--red);background:#ffe9e6;border-style:dashed}.warn .t{color:var(--red)}
+.tip{border-color:var(--green);background:#e6f7ea}.tip .t{color:var(--green)}
+.exam{border-color:var(--purple);background:#f6ebfc}.exam .t{color:var(--purple)}
+.def{border-color:var(--blue);background:#e8f2ff}.def .t{color:var(--blue)}
+/* ---------- Code ---------- */
+pre{
+  font-family:'Courier Prime',monospace;font-size:14.5px;line-height:21px;
+  background:#2b2f4a;color:#f1f1f1;border-radius:8px;padding:10px 14px;margin:8px 0 12px;
+  overflow-x:auto;border-left:6px solid #ffb74d;box-shadow:3px 3px 0 rgba(0,0,0,.18);
+}
+pre .c{color:#9ad1a0}
+pre .k{color:#ffcb6b}
+code{font-family:'Courier Prime',monospace;font-size:14.5px;background:#eceaff;color:#4a1f8f;padding:0 5px;border-radius:4px}
+/* ---------- Tables ---------- */
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;background:rgba(255,255,255,.85);font-size:16px;line-height:23px}
+th{
+  font-family:'Caveat',cursive;font-size:23px;line-height:28px;color:#fff;background:var(--blue);
+  padding:2px 8px;text-align:left;border:2px solid var(--ink)
+}
+td{padding:3px 8px;border:2px solid var(--ink);vertical-align:top}
+tr:nth-child(even) td{background:#f0f7ff}
+.u2 ~ * table th{background:#1e8449}
+/* ---------- Misc ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two>div{min-width:0}
+.sticky{
+  display:inline-block;background:#fff59d;padding:6px 14px;font-family:'Caveat',cursive;font-size:22px;line-height:26px;
+  transform:rotate(-1.5deg);box-shadow:2px 3px 6px rgba(0,0,0,.25);margin:6px 8px 6px 0;max-width:100%;
+}
+.sticky.pink{background:#f8bbd0;transform:rotate(1.2deg)}
+.sticky.mint{background:#b2ebf2;transform:rotate(-.8deg)}
+.diagram{
+  font-family:'Courier Prime',monospace;font-size:15px;line-height:22px;
+  background:#fffdf0;border:2px dashed var(--ink);border-radius:10px;padding:8px 14px;margin:8px 0 12px;white-space:pre;overflow-x:auto;color:var(--ink)
+}
+.revision{border:3px double var(--red);background:#fff4f2;border-radius:12px;padding:6px 18px;margin:22px 0 10px}
+.revision h3{color:var(--red);text-decoration:none;font-size:30px}
+.pagebreak{height:6px}
+.footer{text-align:center;font-family:'Caveat',cursive;font-size:28px;color:var(--purple);margin-top:26px}
+/* ---------- Responsive & print ---------- */
+@media(max-width:700px){
+  .notebook{padding:22px 14px 28px 44px;
+    background:
+      linear-gradient(90deg,transparent 30px,var(--margin) 30px,var(--margin) 32px,transparent 32px),
+      repeating-linear-gradient(to bottom,var(--paper) 0,var(--paper) 29px,var(--line) 29px,var(--line) 30px)}
+  .notebook::before{display:none}
+  .two{grid-template-columns:1fr}
+  .cover h1{font-size:44px;line-height:46px}
+  .unit{font-size:32px;margin-left:-6px;margin-right:-6px}
+  body{font-size:16px}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .notebook{box-shadow:none;max-width:100%}
+  .unit,h2{break-after:avoid}
+  pre,table,.box{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="notebook">
+
+<!-- ================= COVER ================= -->
+<div class="cover">
+  <div class="sub">~ Mid-Term Master Notes ~</div>
+  <h1>C++ <span>Programming</span></h1>
+  <div class="tagline">Units I, II &amp; III &nbsp;•&nbsp; Simple • Clear • Exam-Ready ✍️</div>
+  <div class="badges">
+    <span class="badge b1">Concepts</span><span class="badge b2">Syntax</span>
+    <span class="badge b3">Programs</span><span class="badge b4">Exam Practice</span>
+  </div>
+</div>
+
+<div class="box key">
+  <span class="t">★ 3-Pass Study Method</span>
+  <ol>
+    <li><b>Understand</b> the idea + diagram first. Syntax later.</li>
+    <li><b>Type &amp; run</b> the example. <em>Predict the output</em> before running.</li>
+    <li><b>Close the notes</b> – write the definition, syntax and one example from memory.</li>
+  </ol>
+</div>
+
+<div class="box def">
+  <span class="t">⚙ Compile &amp; Run (GCC / Linux / WSL)</span>
+<pre>g++ -std=c++17 -Wall -Wextra -pedantic main.cpp -o main
+./main            <span class="c">// Windows: main.exe</span></pre>
+  Warnings are not always errors, but they often reveal real mistakes!
+</div>
+<div class="box tip"><span class="t">Code-reading rule</span>For every program find: <b>(1) declaration → (2) initialization → (3) operation → (4) output</b>. For pointers, always <em>draw the variable and its target</em>.</div>
+
+<!-- ================= UNIT I ================= -->
+<div class="unit">UNIT I<small>Concepts, Basics &amp; Functions</small></div>
+
+<table>
+<tr><th>Concept</th><th>Meaning in one line</th><th>Remember</th></tr>
+<tr><td>Class</td><td>Blueprint / user-defined type</td><td>Declares members + access rules</td></tr>
+<tr><td>Object</td><td>Instance of a class</td><td>Has own non-static data</td></tr>
+<tr><td>Encapsulation</td><td>Data + functions bundled together</td><td>Access control protects state</td></tr>
+<tr><td>Overloading</td><td>Same name, different parameters</td><td>Return type alone ✗</td></tr>
+<tr><td>Reference</td><td>Alias of an existing object</td><td>Must be initialized, can't be reseated</td></tr>
+<tr><td>Recursion</td><td>Function calls itself</td><td>Needs base case + progress</td></tr>
+</table>
+
+<h2>1. Paradigms &amp; OOP</h2>
+<div class="def box"><span class="t">Programming Paradigm</span>A general <b>style</b> of designing a program. <b>Procedural</b> = built around functions. <b>OOP</b> = built around <em>objects</em> (data + behaviour). C++ is <b>multi-paradigm</b> (procedural, OOP, generic…).</div>
+
+<h3>Main OOP ideas</h3>
+<table>
+<tr><th>Idea</th><th>Simple explanation</th><th>Example</th></tr>
+<tr><td>Class &amp; Object</td><td>Class = design, object = real usable thing</td><td>Class <code>Student</code>; objects <code>s1, s2</code></td></tr>
+<tr><td>Encapsulation</td><td>Keep data + functions together; control access</td><td>private data, public methods</td></tr>
+<tr><td>Abstraction</td><td>Show only what's needed, hide details</td><td><code>account.deposit(500)</code></td></tr>
+<tr><td>Inheritance</td><td>New class made from existing one (reuse)</td><td>ElectricCar from Vehicle</td></tr>
+<tr><td>Polymorphism</td><td>One name, many behaviours</td><td>Overloading = compile-time; virtual = run-time</td></tr>
+<tr><td>Message passing</td><td>Objects talk by calling public methods</td><td><code>cart.addItem(item)</code></td></tr>
+</table>
+<div class="box warn"><span class="t">Scope note</span>Inheritance &amp; polymorphism are not detailed units in this syllabus – know the <b>definitions</b>, focus on listed topics first.</div>
+
+<h3>Procedural vs OOP</h3>
+<table>
+<tr><th>Procedural</th><th>Object-Oriented</th></tr>
+<tr><td>Organized around functions</td><td>Organized around classes &amp; objects</td></tr>
+<tr><td>Data passed around separately</td><td>Data + operations grouped in a class</td></tr>
+<tr><td>Data protection depends on design</td><td>Access specifiers give controlled access</td></tr>
+<tr><td>Good for small, algorithm tasks</td><td>Good for modelling complex systems</td></tr>
+<tr><td><code>calculateAverage(marks)</code></td><td>Student object → <code>calculateAverage()</code></td></tr>
+</table>
+<div class="two">
+<div class="box tip"><span class="t">✔ Advantages of OOP</span>Modular design • code reuse • controlled access • models real world • easy maintenance</div>
+<div class="box warn"><span class="t">✘ Limitations</span>Extra design effort • too complex for tiny tasks • bad class design → tightly coupled code</div>
+</div>
+
+<h2>2. C++ Input / Output</h2>
+<pre><span class="k">#include</span> &lt;iostream&gt;
+<span class="k">using namespace</span> std;
+<span class="k">int</span> main() {
+    <span class="k">int</span> age{};                       <span class="c">// zero-initialized</span>
+    cout &lt;&lt; "Enter your age: ";
+    cin &gt;&gt; age;
+    cout &lt;&lt; "Age = " &lt;&lt; age &lt;&lt; '\n';
+    <span class="k">return</span> 0;
+}</pre>
+<ul class="arrow">
+<li><code>&lt;&lt;</code> = <b>insertion</b> operator (output) &nbsp;|&nbsp; <code>&gt;&gt;</code> = <b>extraction</b> operator (input)</li>
+<li><code>main</code> = entry point; <code>#include &lt;iostream&gt;</code> gives I/O declarations.</li>
+</ul>
+<table>
+<tr><th>Expression</th><th>Meaning</th></tr>
+<tr><td><code>cin &gt;&gt; x;</code></td><td>Read one value (skips leading whitespace)</td></tr>
+<tr><td><code>cin &gt;&gt; a &gt;&gt; b;</code></td><td>Read two values, whitespace-separated</td></tr>
+<tr><td><code>cout &lt;&lt; "x=" &lt;&lt; x;</code></td><td>Chain outputs left → right</td></tr>
+<tr><td><code>cout &lt;&lt; '\n';</code></td><td>New line (does NOT necessarily flush)</td></tr>
+<tr><td><code>getline(cin, name);</code></td><td>Read a full line incl. spaces</td></tr>
+<tr><td><code>cin.ignore(...);</code></td><td>Discard characters – use before getline after cin &gt;&gt;</td></tr>
+</table>
+<pre>cin &gt;&gt; roll;
+cin.ignore(numeric_limits&lt;streamsize&gt;::max(), '\n');  <span class="c">// clear leftover \n</span>
+getline(cin, name);</pre>
+<div class="box warn"><span class="t">⚠ Common Input Bug</span>After <code>cin &gt;&gt; number</code> the <b>newline stays</b> in the buffer. A following <code>getline</code> reads that empty line. Fix: <code>cin.ignore(...)</code>.</div>
+
+<h3>Streams</h3>
+<div class="def box"><b>Stream</b> = flow of characters/bytes between program and a source/destination.</div>
+<table>
+<tr><th>Stream</th><th>Purpose</th><th>Use</th></tr>
+<tr><td>cin</td><td>Standard input</td><td>Keyboard</td></tr>
+<tr><td>cout</td><td>Standard output</td><td>Normal messages</td></tr>
+<tr><td>cerr</td><td>Standard error (usually unbuffered)</td><td>Errors</td></tr>
+<tr><td>clog</td><td>Standard error (usually buffered)</td><td>Logs</td></tr>
+<tr><td>ifstream</td><td>Input file stream</td><td>Read file</td></tr>
+<tr><td>ofstream</td><td>Output file stream</td><td>Write file</td></tr>
+<tr><td>fstream</td><td>Input + output file stream</td><td>Read &amp; write</td></tr>
+</table>
+<p><span class="hl">&lt;&lt; and &gt;&gt; are overloaded</span> – same symbol works for int, double, char, string.</p>
+
+<h2>3. Classes, Objects &amp; Access</h2>
+<pre><span class="k">class</span> Student {
+<span class="k">private:</span>
+    <span class="k">int</span> roll{};  <span class="k">double</span> marks{};
+<span class="k">public:</span>
+    <span class="k">void</span> setData(<span class="k">int</span> r, <span class="k">double</span> m);
+    <span class="k">void</span> display() <span class="k">const</span>;
+};
+<span class="k">void</span> Student::setData(<span class="k">int</span> r, <span class="k">double</span> m){ roll = r; marks = m; }
+<span class="k">void</span> Student::display() <span class="k">const</span>{ cout &lt;&lt; roll &lt;&lt; " " &lt;&lt; marks &lt;&lt; '\n'; }
+
+<span class="k">int</span> main(){ Student s1; s1.setData(12, 89.5); s1.display(); }</pre>
+<ul class="star">
+<li><b>Data members</b> = object's state (roll, marks). <b>Member functions</b> = operations.</li>
+<li><code>::</code> scope-resolution → define a function <em>outside</em> the class.</li>
+<li><code>.</code> dot operator → access member through an object.</li>
+<li><code>const</code> after parameter list = function promises <b>not to modify</b> the object.</li>
+</ul>
+<table>
+<tr><th>Specifier</th><th>Accessible from</th><th>Default in</th></tr>
+<tr><td>public</td><td>Anywhere the object is visible</td><td><b>struct</b></td></tr>
+<tr><td>private</td><td>Only class members &amp; friends</td><td><b>class</b></td></tr>
+<tr><td>protected</td><td>Members, friends &amp; derived classes</td><td>neither</td></tr>
+</table>
+<div class="box key"><span class="t">Encapsulation example</span>Keep <code>balance</code> private in <code>BankAccount</code>. Give <code>deposit()</code> / <code>withdraw()</code> that validate amounts → no one can set a negative balance directly.</div>
+<ul class="star">
+<li><b>Declaration</b> = introduces name &amp; type. <b>Definition</b> = gives the full body/entity.</li>
+<li>Each object has its <em>own copy</em> of non-static data members.</li>
+<li>Private member can't be used from <code>main</code> – use public interface or friendship.</li>
+</ul>
+<pre><span class="k">class</span> Rectangle {
+    <span class="k">double</span> length{}, width{};
+<span class="k">public:</span>
+    <span class="k">void</span> setDimensions(<span class="k">double</span> l, <span class="k">double</span> w){ <span class="k">if</span>(l&gt;0 &amp;&amp; w&gt;0){ length=l; width=w; } }
+    <span class="k">double</span> area() <span class="k">const</span>{ <span class="k">return</span> length*width; }
+};
+<span class="c">// r.setDimensions(5,3); r.area() → 15</span></pre>
+
+<h2>4. struct, union, enum</h2>
+<div class="box def"><span class="t">struct vs class</span>Both define class types (can have constructors, functions, static members). <b>Only difference: default access</b> → struct = <em>public</em>, class = <em>private</em>.</div>
+<table>
+<tr><th>Type</th><th>Memory idea</th><th>Use when</th></tr>
+<tr><td>struct / class</td><td>Each object has separate fields</td><td>Several values together</td></tr>
+<tr><td>union</td><td>Members <b>overlap</b> in same memory</td><td>Low-level; only one active at a time</td></tr>
+<tr><td>enum / enum class</td><td>One of fixed named constants</td><td>States, modes, directions</td></tr>
+</table>
+<pre><span class="k">union</span> Number { <span class="k">int</span> i; <span class="k">float</span> f; };
+Number n; n.i = 10;  n.f = 3.5f;   <span class="c">// now f is active; i is overwritten</span>
+
+<span class="k">enum</span> Day { Monday, Tuesday, Wednesday };       Day today = Tuesday;
+<span class="k">enum class</span> Status { Pending, Running, Done };  Status s = Status::Running;</pre>
+<div class="box warn"><span class="t">⚠ Union caution</span>Don't read an <b>inactive</b> member as a normal field – writing one overwrites the other.</div>
+<p><span class="hl">Traditional enum</span>: names go in surrounding scope, converts to int. &nbsp; <span class="hl2">enum class</span>: names stay under type (<code>Status::Done</code>), no implicit int conversion.</p>
+
+<h2>5. Inline &amp; Non-inline Member Functions</h2>
+<div class="def box"><span class="t">Inline function</span>Compiler <b>may</b> paste the body at the call site (optimization). It's a <em>request</em>, not a guarantee. It does <b>not</b> always make code faster.</div>
+<div class="two">
+<div>
+<h3>Inside class (implicitly inline)</h3>
+<pre><span class="k">class</span> Circle {
+  <span class="k">double</span> radius{};
+<span class="k">public:</span>
+  <span class="k">double</span> area() <span class="k">const</span>
+  { <span class="k">return</span> 3.14159*radius*radius; }
+};</pre>
+</div>
+<div>
+<h3>Outside class (not inline)</h3>
+<pre><span class="k">class</span> Circle {
+  <span class="k">double</span> radius{};
+<span class="k">public:</span>
+  <span class="k">void</span> setRadius(<span class="k">double</span> r);
+};
+<span class="k">void</span> Circle::setRadius(<span class="k">double</span> r)
+{ radius = r; }</pre>
+</div>
+</div>
+<div class="box exam"><span class="t">Exam wording ✍</span>Don't write “inline always makes code faster.” Write: <b>“inline suggests inline treatment; actual optimization is compiler-dependent.”</b> Inside-class = short ops; outside-class = keeps interface clean for longer code.</div>
+
+<h2>6. Static Members</h2>
+<h3>Static data member</h3>
+<p>Belongs to the <b>class</b>, not each object. <span class="hl">One shared copy</span> for all objects.</p>
+<pre><span class="k">class</span> Counter {
+<span class="k">public:</span>
+    <span class="k">static int</span> count;
+    Counter(){ ++count; }
+};
+<span class="k">int</span> Counter::count = 0;      <span class="c">// definition outside class (pre-C++17 style)</span>
+<span class="c">// Counter a,b,c;  cout &lt;&lt; Counter::count;  → 3</span></pre>
+<p>C++17: <code>inline static int count = 0;</code> can be initialized inside the class.</p>
+<h3>Static member function</h3>
+<pre><span class="k">class</span> MathTool { <span class="k">public:</span> <span class="k">static int</span> square(<span class="k">int</span> x){ <span class="k">return</span> x*x; } };
+<span class="k">int</span> answer = MathTool::square(5);   <span class="c">// 25</span></pre>
+<div class="box key"><span class="t">Remember</span>Static function has <b>no <code>this</code> pointer</b> → can use static members directly, <em>cannot</em> touch a particular object's non-static members. Call with <code>ClassName::function()</code>.</div>
+
+<h2>7. Default Arguments &amp; Manipulators</h2>
+<p><b>Default argument</b> = value used when the caller omits it. Defaults go at the <em>right end</em> of the list.</p>
+<pre><span class="k">int</span> power(<span class="k">int</span> exponent, <span class="k">int</span> base = 10) {
+    <span class="k">int</span> result = 1;
+    <span class="k">for</span>(<span class="k">int</span> i=0;i&lt;exponent;++i) result *= base;
+    <span class="k">return</span> result;
+}
+<span class="c">// power(2) → 100      power(2,3) → 9</span></pre>
+<div class="box warn"><span class="t">Rules</span>f(int a, int b = 4) ✔ → f(3) means f(3,4). &nbsp; f(int a = 1, int b) ✘ (non-default after default). Put the default in the <b>declaration once</b>, not again in the definition.</div>
+<p><b>Inline recap:</b> <code>inline int cube(int x){ return x*x*x; }</code> – good for tiny, frequently-called functions.</p>
+
+<h3>Manipulators (change stream formatting)</h3>
+<table>
+<tr><th>Manipulator</th><th>Header</th><th>Effect</th></tr>
+<tr><td>endl</td><td>iostream</td><td>New line <b>+ flush</b></td></tr>
+<tr><td>setw(n)</td><td>iomanip</td><td>Width for next field</td></tr>
+<tr><td>setprecision(n)</td><td>iomanip</td><td>Precision (with <code>fixed</code> = digits after decimal)</td></tr>
+<tr><td>fixed / scientific</td><td>iostream</td><td>Fixed-point / scientific notation</td></tr>
+<tr><td>setfill(ch)</td><td>iomanip</td><td>Padding character</td></tr>
+<tr><td>left / right</td><td>iostream</td><td>Alignment in field</td></tr>
+<tr><td>boolalpha</td><td>iostream</td><td>Print bool as true/false</td></tr>
+</table>
+<pre><span class="k">double</span> x = 12.34567;
+cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; x;        <span class="c">// 12.35</span>
+cout &lt;&lt; setw(6) &lt;&lt; setfill('0') &lt;&lt; 42;         <span class="c">// 000042</span>
+cout &lt;&lt; boolalpha &lt;&lt; true;                    <span class="c">// true</span></pre>
+<div class="box tip"><span class="t">endl vs \n</span>Use <code>\n</code> for a plain line break. <code>endl</code> also <b>flushes</b> → extra overhead inside big loops.</div>
+
+<h2>8. Function Overloading &amp; Scope</h2>
+<div class="def box"><span class="t">Function Overloading</span>Many functions share one name if parameter lists differ so the compiler can choose clearly. Compiler checks <b>count, types, conversions</b>. No single best match → <b>ambiguous → compile error</b>.</div>
+<pre><span class="k">int</span>    add(<span class="k">int</span> a, <span class="k">int</span> b)           { <span class="k">return</span> a+b; }
+<span class="k">double</span> add(<span class="k">double</span> a, <span class="k">double</span> b)     { <span class="k">return</span> a+b; }
+<span class="k">int</span>    add(<span class="k">int</span> a,<span class="k">int</span> b,<span class="k">int</span> c)     { <span class="k">return</span> a+b+c; }</pre>
+<div class="box warn"><span class="t">✘ Not valid</span><code>int f(int);</code> and <code>double f(int);</code> differ only by <b>return type</b> → cannot overload.</div>
+
+<h3>Scope – where a name is visible</h3>
+<table>
+<tr><th>Scope</th><th>Visible</th><th>Example</th></tr>
+<tr><td>Local / block</td><td>Inside function/block</td><td><code>int x</code> inside if</td></tr>
+<tr><td>Global</td><td>From declaration, outside functions</td><td>variable outside all functions</td></tr>
+<tr><td>Class</td><td>Inside class / via ClassName::</td><td><code>Student::display</code></td></tr>
+<tr><td>Parameter</td><td>In that function</td><td><code>sum(int a,int b)</code></td></tr>
+<tr><td>Loop</td><td>Only that loop</td><td><code>for(int i=0;..)</code></td></tr>
+</table>
+<pre><span class="k">int</span> value = 100;                <span class="c">// global</span>
+<span class="k">int</span> main(){
+    <span class="k">int</span> value = 20;             <span class="c">// local hides global</span>
+    cout &lt;&lt; value;            <span class="c">// 20</span>
+    cout &lt;&lt; ::value;          <span class="c">// 100  (:: reaches global)</span>
+}</pre>
+<table>
+<tr><th>Overloading</th><th>Default arguments</th></tr>
+<tr><td>Several definitions, same name, different params</td><td>One function; omitted trailing args are filled in</td></tr>
+<tr><td>Compiler picks viable overload</td><td>Compiler uses declared defaults</td></tr>
+<tr><td colspan="2">Both can become <b>ambiguous</b> if mixed carelessly.</td></tr>
+</table>
+
+<h2>9. Friend Function &amp; Friend Class</h2>
+<div class="def box"><span class="t">Friend</span>Not a member, but the class <b>grants it permission</b> to use private/protected members. Friendship is <b>given</b>, not automatic, not mutual, not inherited.</div>
+<pre><span class="k">class</span> Box {
+    <span class="k">int</span> width;
+<span class="k">public:</span>
+    <span class="k">explicit</span> Box(<span class="k">int</span> w) : width(w) {}
+    <span class="k">friend void</span> showWidth(<span class="k">const</span> Box&amp; b);
+};
+<span class="k">void</span> showWidth(<span class="k">const</span> Box&amp; b){ cout &lt;&lt; b.width; }   <span class="c">// allowed</span>
+<span class="c">// call: showWidth(b);   NOT b.showWidth();</span>
+
+<span class="k">class</span> Account { <span class="k">double</span> balance = 0; <span class="k">friend class</span> Auditor; };
+<span class="k">class</span> Auditor { <span class="k">public:</span> <span class="k">double</span> inspect(<span class="k">const</span> Account&amp; a) <span class="k">const</span>{ <span class="k">return</span> a.balance; } };</pre>
+<table>
+<tr><th>Friend function</th><th>Friend class</th></tr>
+<tr><td>Access for one named non-member function</td><td>Access for all member functions of that class</td></tr>
+<tr><td>Useful for symmetric ops / stream operators</td><td>Useful for tightly cooperating classes</td></tr>
+<tr><td>Doesn't become a member</td><td>Doesn't make classes derived from each other</td></tr>
+</table>
+<p class="sticky">Use friends sparingly – they weaken encapsulation!</p>
+
+<h2>10. References &amp; Parameter Passing</h2>
+<div class="def box"><span class="t">Reference variable</span>An <b>alias</b> for an existing object. Must be initialized when declared; afterwards always refers to the same object.</div>
+<pre><span class="k">int</span> score = 80;
+<span class="k">int</span>&amp; alias = score;
+alias = 95;       <span class="c">// score becomes 95</span></pre>
+<div class="two">
+<div><h3>① Call by value</h3>
+<pre><span class="k">void</span> change(<span class="k">int</span> x){ x = 99; }
+<span class="c">// a=10 → still 10</span></pre></div>
+<div><h3>② Call by address</h3>
+<pre><span class="k">void</span> change(<span class="k">int</span>* p){
+  <span class="k">if</span>(p!=nullptr) *p = 99; }
+<span class="c">// change(&amp;a); → a=99</span></pre></div>
+</div>
+<h3>③ Call by reference</h3>
+<pre><span class="k">void</span> change(<span class="k">int</span>&amp; x){ x = 99; }            <span class="c">// a becomes 99</span>
+<span class="k">void</span> printName(<span class="k">const</span> string&amp; name){ cout &lt;&lt; name; }   <span class="c">// no copy, no change</span></pre>
+<table>
+<tr><th>Method</th><th>Parameter</th><th>Call</th><th>Changes caller?</th><th>Null?</th></tr>
+<tr><td>Value</td><td>T</td><td>f(x)</td><td>No</td><td>–</td></tr>
+<tr><td>Address</td><td>T*</td><td>f(&amp;x)</td><td>Yes (via *p)</td><td>Can be nullptr</td></tr>
+<tr><td>Reference</td><td>T&amp;</td><td>f(x)</td><td>Yes (alias)</td><td>Normally not null</td></tr>
+</table>
+<div class="box exam"><span class="t">Exam precision ✍</span>In C++, arguments are passed <b>by value unless the parameter is a reference</b>. “Call by address” passes a <em>pointer by value</em>; the pointed-to object can still be modified.</div>
+<pre><span class="k">void</span> swapValues(<span class="k">int</span>&amp; a, <span class="k">int</span>&amp; b){ <span class="k">int</span> temp = a; a = b; b = temp; }
+<span class="c">// x=4, y=9 → swapValues(x,y) → 9 4</span></pre>
+
+<h2>11. Recursion</h2>
+<div class="def box"><span class="t">Recursion</span>A function calls itself (directly/indirectly) to solve a <b>smaller version</b> of the same problem. Needs a <b>base case</b> (stops) + a <b>recursive step</b> (moves toward base).</div>
+<pre><span class="k">long long</span> factorial(<span class="k">int</span> n){
+    <span class="k">if</span>(n &lt; 0)  <span class="k">return</span> -1;      <span class="c">// invalid input signal</span>
+    <span class="k">if</span>(n &lt;= 1) <span class="k">return</span> 1;       <span class="c">// BASE CASE</span>
+    <span class="k">return</span> n * factorial(n-1);   <span class="c">// RECURSIVE STEP</span>
+}</pre>
+<div class="diagram">factorial(4) = 4 × factorial(3)
+             = 4 × 3 × factorial(2)
+             = 4 × 3 × 2 × factorial(1)
+             = 4 × 3 × 2 × 1  = 24
+(each pending call waits for the next to return)</div>
+<div class="box tip"><span class="t">✔ Recursion checklist</span>① Base case present? ② Each call moves toward it? ③ Depth limited (no stack overflow)? ④ Result type big enough?</div>
+<h3>Recursive member function</h3>
+<pre><span class="k">class</span> Counter { <span class="k">public:</span>
+  <span class="k">void</span> countdown(<span class="k">int</span> n) <span class="k">const</span>{
+    <span class="k">if</span>(n &lt;= 0){ cout &lt;&lt; "Go!\n"; <span class="k">return</span>; }
+    cout &lt;&lt; n &lt;&lt; ' ';  countdown(n-1);
+  } };</pre>
+<table>
+<tr><th>Recursion</th><th>Iteration</th></tr>
+<tr><td>Function calls + stack frames</td><td>Loops (for/while/do-while)</td></tr>
+<tr><td>Natural for tree-like problems</td><td>Easier for simple repetition</td></tr>
+<tr><td>Deep recursion can exhaust stack</td><td>No per-step stack cost</td></tr>
+<tr><td>Needs a correct base case</td><td>Needs a terminating condition</td></tr>
+</table>
+
+<div class="revision">
+<h3>⚡ Unit I – Rapid Revision</h3>
+<ul class="star">
+<li>OOP groups data + behaviour; encapsulation protects state; abstraction exposes useful interface.</li>
+<li><code>cin</code> uses <code>&gt;&gt;</code>, <code>cout</code> uses <code>&lt;&lt;</code>; <code>getline</code> reads spaces; <code>ignore</code> clears leftover newline.</li>
+<li><b>class</b> → private default; <b>struct</b> → public default.</li>
+<li>Non-static members = per object; <b>static</b> = shared by class.</li>
+<li>Overload by <b>parameter list</b>, never return type alone. Defaults fill trailing args.</li>
+<li>Friend can access private data but is <b>not</b> a member.</li>
+<li>Value copies • pointer uses address • reference aliases the original.</li>
+<li>Recursion = base case + progress.</li>
+</ul></div>
+
+<!-- ================= UNIT II ================= -->
+<div class="unit u2">UNIT II<small>Pointers, References, Arrays &amp; Strings</small></div>
+<div class="box key"><span class="t">Mental model 🧠</span>A variable has a <b>value</b> and lives in storage. A <b>pointer</b> is also a variable – its value is an <b>address</b>. Dereferencing a valid pointer reaches the object at that address.</div>
+<div class="diagram">   x             p
+ ┌────┐        ┌────────┐
+ │ 25 │ ◄──────│ &amp;x     │      p = &amp;x ;  *p = 25
+ └────┘        └────────┘
+ addr 1000     (holds 1000)</div>
+
+<h2>12. Pointer Fundamentals</h2>
+<pre><span class="k">int</span> x = 25;
+<span class="k">int</span>* p = &amp;x;
+cout &lt;&lt; x;      <span class="c">// 25</span>
+cout &lt;&lt; &amp;x;     <span class="c">// address of x</span>
+cout &lt;&lt; p;      <span class="c">// same address</span>
+cout &lt;&lt; *p;     <span class="c">// 25</span>
+*p = 40;         <span class="c">// x is now 40</span></pre>
+<table>
+<tr><th>Syntax</th><th>Meaning</th></tr>
+<tr><td><code>&amp;x</code></td><td>Address of x</td></tr>
+<tr><td><code>int* p</code></td><td>p is a pointer to int</td></tr>
+<tr><td><code>p = &amp;x</code></td><td>Store x's address in p</td></tr>
+<tr><td><code>*p</code></td><td>Dereference – the int p points to</td></tr>
+<tr><td><code>p == nullptr</code></td><td>Is p null?</td></tr>
+<tr><td><code>p-&gt;member</code></td><td>Same as <code>(*p).member</code></td></tr>
+</table>
+<div class="box warn"><span class="t">Declaration pitfall</span><code>int* p, q;</code> → p is pointer, <b>q is a plain int</b>.<br><code>int *p, *q;</code> → both pointers. (The * belongs to each declarator.)</div>
+
+<h3>Null, wild &amp; dangling</h3>
+<table>
+<tr><th>Kind</th><th>Meaning</th><th>Safe handling</th></tr>
+<tr><td><b>Null</b></td><td>Points to nothing: <code>int* p = nullptr;</code></td><td>Check before dereferencing</td></tr>
+<tr><td><b>Wild</b></td><td>Uninitialized – random address</td><td>Initialize immediately (nullptr / address)</td></tr>
+<tr><td><b>Dangling</b></td><td>Points to object whose life ended / memory freed</td><td>Never dereference; reset pointer</td></tr>
+<tr><td>Valid</td><td>Points to a live object of right type</td><td>Respect lifetime &amp; bounds</td></tr>
+</table>
+<div class="box warn"><span class="t">NEVER DO THIS ☠</span>Dereferencing uninitialized, dangling or null pointer = <b>undefined behaviour</b> (crash, garbage, or "works" then fails later).</div>
+<pre><span class="k">int</span>* p = nullptr;
+<span class="k">if</span>(p != nullptr){ cout &lt;&lt; *p; }       <span class="c">// safe</span></pre>
+<h3>Pointer assignment</h3>
+<p>Copies the <b>address</b>, not the object. Both then refer to the same variable.</p>
+<pre><span class="k">int</span> x = 7;  <span class="k">int</span>* p = &amp;x;  <span class="k">int</span>* q = p;
+*q = 15;   cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; *p;    <span class="c">// 15 15</span></pre>
+
+<h2>13. void*, Pointer Arithmetic, Pointer-to-Pointer</h2>
+<h3>void pointer</h3>
+<p>Generic pointer – holds the address of any object type, but <b>can't be dereferenced directly</b>; cast first. Arithmetic on <code>void*</code> is not standard C++.</p>
+<pre><span class="k">int</span> n = 42;  <span class="k">void</span>* vp = &amp;n;
+<span class="k">int</span>* ip = <span class="k">static_cast</span>&lt;<span class="k">int</span>*&gt;(vp);
+cout &lt;&lt; *ip;       <span class="c">// 42</span></pre>
+<h3>Pointer arithmetic</h3>
+<p><code>p + 1</code> moves to the <b>next element</b>, not the next byte (step = <code>sizeof(*p)</code>).</p>
+<pre><span class="k">int</span> a[] = {10, 20, 30};
+<span class="k">int</span>* p = a;                 <span class="c">// points to a[0]</span>
+*p → 10     *(p+1) → 20     p[2] → 30
+p++;   *p → 20</pre>
+<table>
+<tr><th>Expression (p → a[0])</th><th>Meaning</th></tr>
+<tr><td><code>p</code></td><td>Address of a[0]</td></tr>
+<tr><td><code>*p</code></td><td>Value of a[0]</td></tr>
+<tr><td><code>p + 1</code></td><td>Address of a[1]</td></tr>
+<tr><td><code>*(p + 2)</code> = <code>p[2]</code></td><td>Value of a[2]</td></tr>
+<tr><td><code>a + 3</code></td><td>One-past-end – <b>don't dereference</b></td></tr>
+</table>
+<div class="box warn"><span class="t">Trap</span>Subtracting/comparing pointers only makes sense when both point into the <b>same array</b> (or one past it).</div>
+<h3>Pointer to pointer</h3>
+<pre><span class="k">int</span> x = 5;  <span class="k">int</span>* p = &amp;x;  <span class="k">int</span>** pp = &amp;p;
+cout &lt;&lt; **pp;     <span class="c">// 5</span>
+**pp = 18;         <span class="c">// x = 18</span></pre>
+<div class="diagram"> pp ──► p ──► x
+ **pp  = *(*pp) = *p = x</div>
+<p>Read <code>**pp</code> inside-out: <code>*pp</code> gives p, <code>**pp</code> gives x.</p>
+
+<h2>14. Pointers &amp; Class Objects</h2>
+<h3>Pointer to object</h3>
+<pre>Student s;  s.roll = 21;
+Student* ps = &amp;s;
+ps-&gt;show();   cout &lt;&lt; ps-&gt;roll;       <span class="c">// (*ps).show() is the same</span></pre>
+<p class="sticky mint">Parentheses needed in (*ps).member because <b>.</b> binds tighter than <b>*</b></p>
+<h3>The <code>this</code> pointer</h3>
+<div class="def box">Inside a <b>non-static</b> member function, <code>this</code> = pointer to the object that called the function. Static functions have no <code>this</code>.</div>
+<pre><span class="k">void</span> setRoll(<span class="k">int</span> roll){ <span class="k">this</span>-&gt;roll = roll; }   <span class="c">// left=member, right=parameter</span>
+Student&amp; self(){ <span class="k">return</span> *<span class="k">this</span>; }                <span class="c">// return current object</span></pre>
+<h3>Class containing a pointer</h3>
+<p>Key question: <b>who owns the resource?</b> If the class owns raw dynamic memory, copy &amp; destruction must be designed carefully.</p>
+<pre><span class="k">class</span> IntBox {
+    <span class="k">int</span>* value;
+<span class="k">public:</span>
+    <span class="k">explicit</span> IntBox(<span class="k">int</span> v) : value(<span class="k">new int</span>(v)) {}
+    ~IntBox(){ <span class="k">delete</span> value; }
+    <span class="k">int</span> get() <span class="k">const</span>{ <span class="k">return</span> *value; }
+};</pre>
+<div class="box warn"><span class="t">Copying raw pointers</span>Default copy copies the <b>address</b> → two objects own one allocation → <b>double delete</b>. Prefer <code>std::unique_ptr</code> or write correct copy operations.</div>
+<h3>Shallow vs Deep copy</h3>
+<table>
+<tr><th>Shallow copy</th><th>Deep copy</th></tr>
+<tr><td>Copies pointer values (addresses)</td><td>Allocates new storage &amp; copies the pointed-to value</td></tr>
+<tr><td>Two objects share one allocation</td><td>Objects are independent</td></tr>
+<tr><td>Can cause double delete / dangling</td><td>Needs correct alloc, copy, assign, destroy</td></tr>
+</table>
+<pre>IntBox(<span class="k">const</span> IntBox&amp; other) : value(<span class="k">new int</span>(*other.value)) {}   <span class="c">// deep copy ctor</span></pre>
+<p>Modern C++ prefers RAII types: <code>unique_ptr</code>, <code>vector</code>, <code>string</code>.</p>
+
+<h2>15. Arrays &amp; Multidimensional Arrays</h2>
+<pre><span class="k">int</span> marks[5] = {70, 82, 90, 68, 75};
+cout &lt;&lt; marks[0];     <span class="c">// 70</span>
+marks[2] = 95;</pre>
+<ul class="star">
+<li>Same-type elements stored <b>contiguously</b>; indices <b>0 … n-1</b>.</li>
+<li>Built-in arrays have <b>no bounds checking</b> (<code>marks[5]</code> is out of bounds!).</li>
+<li>Size is fixed. Passed to a function → becomes a <b>pointer</b>; length is not passed.</li>
+<li><code>sizeof(a)/sizeof(a[0])</code> gives count only in the declaring scope.</li>
+</ul>
+<pre><span class="k">int</span> a[] = {4,8,2,6};  <span class="k">int</span> sum = 0;
+<span class="k">for</span>(<span class="k">int</span> i=0;i&lt;4;++i) sum += a[i];     <span class="c">// 20</span></pre>
+<h3>2D arrays – row-major order</h3>
+<pre><span class="k">int</span> a[2][3] = { {1,2,3}, {4,5,6} };
+<span class="k">for</span>(<span class="k">int</span> r=0;r&lt;2;++r){
+   <span class="k">for</span>(<span class="k">int</span> c=0;c&lt;3;++c) cout &lt;&lt; a[r][c] &lt;&lt; ' ';
+   cout &lt;&lt; '\n';
+}</pre>
+<div class="diagram">Memory (row-major):  1 2 3 | 4 5 6
+a[r]    → r-th row
+a[r][c] → element at row r, column c
+a[2][..] or a[..][3] → OUT OF BOUNDS for a[2][3]</div>
+<h3>Passing a 2D array to a function</h3>
+<pre><span class="k">void</span> printMatrix(<span class="k">const int</span> a[][3], <span class="k">int</span> rows){ <span class="c">/* loops */</span> }</pre>
+<p><span class="hl">Column size (3) must be known</span> so the compiler can calculate element addresses.</p>
+<h3>Array inside a class</h3>
+<pre><span class="k">class</span> Matrix2x3 {
+    <span class="k">int</span> data[2][3]{};
+<span class="k">public:</span>
+    <span class="k">void</span> set(<span class="k">int</span> r,<span class="k">int</span> c,<span class="k">int</span> v){ <span class="k">if</span>(r&gt;=0&amp;&amp;r&lt;2&amp;&amp;c&gt;=0&amp;&amp;c&lt;3) data[r][c]=v; }
+    <span class="k">int</span>  get(<span class="k">int</span> r,<span class="k">int</span> c) <span class="k">const</span>{ <span class="k">if</span>(r&gt;=0&amp;&amp;r&lt;2&amp;&amp;c&gt;=0&amp;&amp;c&lt;3) <span class="k">return</span> data[r][c]; <span class="k">return</span> 0; }
+};</pre>
+<p>Encapsulates the array with <b>bounds checks</b> (returning 0 is just a demo; real code should signal errors).</p>
+<h3>Array of objects</h3>
+<pre>Item items[3];
+items[0].id = 101;  items[1].id = 102;  items[2].id = 103;
+<span class="k">for</span>(<span class="k">int</span> i=0;i&lt;3;++i) items[i].display();</pre>
+<p>Each element is a full object; constructors run for each when the array is created.</p>
+
+<h2>16. std::string</h2>
+<p><code>std::string</code> (in <code>&lt;string&gt;</code>) manages text: assign, join, compare, index, search – with automatic length tracking. Much easier than C-style char arrays.</p>
+<pre>string first = "Ada", last;  last = "Lovelace";
+string full = first + " " + last;
+cout &lt;&lt; full &lt;&lt; full.length();</pre>
+<table>
+<tr><th>Operation</th><th>Example</th><th>Meaning</th></tr>
+<tr><td>Default</td><td><code>string s;</code></td><td>Empty string</td></tr>
+<tr><td>Literal</td><td><code>string s = "robot";</code></td><td>Stores robot</td></tr>
+<tr><td>Assign</td><td><code>s = "C++";</code></td><td>Replace contents</td></tr>
+<tr><td>Copy</td><td><code>string t = s;</code></td><td>t gets a copy</td></tr>
+<tr><td>Concatenate</td><td><code>s + t</code></td><td>Combined string</td></tr>
+<tr><td>Append</td><td><code>s += " lab";</code></td><td>Add at end</td></tr>
+</table>
+<h3>Important member functions</h3>
+<table>
+<tr><th>Member</th><th>Use</th><th>Example</th></tr>
+<tr><td>size() / length()</td><td>Number of characters</td><td>s.size()</td></tr>
+<tr><td>empty()</td><td>True if no characters</td><td>s.empty()</td></tr>
+<tr><td>at(pos)</td><td>Element access <b>with bounds check</b></td><td>s.at(0)</td></tr>
+<tr><td>operator[]</td><td>Element access, no check</td><td>s[0]</td></tr>
+<tr><td>append(text)</td><td>Add to end</td><td>s.append("AI")</td></tr>
+<tr><td>push_back(ch)</td><td>Add one char</td><td>s.push_back('!')</td></tr>
+<tr><td>pop_back()</td><td>Remove last char</td><td>s.pop_back()</td></tr>
+<tr><td>insert(pos,text)</td><td>Insert text</td><td>s.insert(2,"XX")</td></tr>
+<tr><td>erase(pos,count)</td><td>Remove part</td><td>s.erase(1,3)</td></tr>
+<tr><td>replace(pos,count,text)</td><td>Replace substring</td><td>s.replace(0,2,"Hi")</td></tr>
+<tr><td>find(text)</td><td>Position, or <code>string::npos</code> if absent</td><td>s.find("robot")</td></tr>
+<tr><td>substr(pos,count)</td><td>Extract substring</td><td>s.substr(2,4)</td></tr>
+<tr><td>compare(other)</td><td>Lexicographic compare</td><td>s.compare(t)</td></tr>
+</table>
+<p>Index starts at <b>0</b>. <code>string::npos</code> = “not found”.</p>
+<pre>string word;  cin &gt;&gt; word;                       <span class="c">// one token (stops at whitespace)</span>
+cin.ignore(numeric_limits&lt;streamsize&gt;::max(), '\n');
+string sentence;  getline(cin, sentence);       <span class="c">// full line with spaces</span></pre>
+<table>
+<tr><th>std::string</th><th>C-style char array</th></tr>
+<tr><td>Size managed dynamically</td><td>Fixed capacity</td></tr>
+<tr><td>Natural <code>=</code> and <code>+</code></td><td>Needs functions &amp; care</td></tr>
+<tr><td>size()/length()</td><td>Scan for null terminator</td></tr>
+<tr><td>Preferred for normal C++ text</td><td>Needed in low-level/API code</td></tr>
+</table>
+
+<h2>17. Pointer vs Reference &amp; Pointer to Data Member</h2>
+<table>
+<tr><th>Pointer</th><th>Reference</th></tr>
+<tr><td>Stores an <b>address</b></td><td>An <b>alias</b> of an existing object</td></tr>
+<tr><td>May be null</td><td>Must be initialized to a valid object</td></tr>
+<tr><td>Can be re-pointed</td><td>Cannot be reseated</td></tr>
+<tr><td>Uses <code>*</code> and <code>-&gt;</code></td><td>Used like the object itself</td></tr>
+<tr><td>Pointer arithmetic possible (arrays)</td><td>No arithmetic on the reference</td></tr>
+<tr><td>Can mean “no object” (nullptr)</td><td>Not meant for “absent”</td></tr>
+</table>
+<h3>Pointer to data member</h3>
+<div class="def box">Identifies a <b>non-static data member</b> of a class <em>without</em> naming an object. Use <code>.*</code> with an object and <code>-&gt;*</code> with an object pointer.</div>
+<pre><span class="k">class</span> Student { <span class="k">public:</span> <span class="k">int</span> roll; };
+<span class="k">int</span> Student::* memberPtr = &amp;Student::roll;
+Student s{25};  Student* ps = &amp;s;
+s.*memberPtr = 30;        <span class="c">// s.roll = 30</span>
+ps-&gt;*memberPtr = 31;      <span class="c">// ps-&gt;roll = 31</span></pre>
+<p>Read <code>int Student::*</code> as <b>“pointer to an int member of Student.”</b> It is not an ordinary <code>int*</code>.</p>
+<div class="box key"><span class="t">Distinguish</span><code>int* p = &amp;x;</code> → points to <u>one particular</u> int. &nbsp; <code>int Student::* pm = &amp;Student::roll;</code> → identifies the <u>roll member</u> inside <u>any</u> Student.</div>
+
+<div class="revision">
+<h3>⚡ Unit II – Rapid Revision</h3>
+<ul class="star">
+<li><code>&amp;</code> gets address • <code>*</code> dereferences • <code>-&gt;</code> member via pointer.</li>
+<li>Always initialize pointers. nullptr: safe to compare, <b>not</b> to dereference. Avoid wild &amp; dangling.</li>
+<li>Pointer arithmetic steps by pointed-to type; limited to array range + one-past-end.</li>
+<li><code>void*</code> needs a cast before dereference; no arithmetic.</li>
+<li><code>this</code> = current object inside non-static member functions.</li>
+<li>Arrays start at 0, no bounds check; 2D arrays = arrays of arrays, row-major.</li>
+<li><code>std::string</code>: size, find, substr, append, erase, replace…</li>
+<li>Pointer-to-data-member: <code>.*</code> with object, <code>-&gt;*</code> with pointer.</li>
+</ul></div>
+
+<!-- ================= UNIT III ================= -->
+<div class="unit u3">UNIT III<small>File Operations, Constructors &amp; Destructors</small></div>
+<div class="box key"><span class="t">Core question</span>How does a program keep data after it ends, and how should an object <b>start</b> (constructor) and <b>clean up</b> (destructor)?</div>
+
+<h2>18. File Handling Basics</h2>
+<p>Variables vanish when the program ends. A <b>file</b> gives <b>persistent storage</b>. Use <code>&lt;fstream&gt;</code>.</p>
+<table>
+<tr><th>Class</th><th>Purpose</th><th>Declaration</th></tr>
+<tr><td>ifstream</td><td>Read from file</td><td><code>ifstream fin("input.txt");</code></td></tr>
+<tr><td>ofstream</td><td>Write to file</td><td><code>ofstream fout("output.txt");</code></td></tr>
+<tr><td>fstream</td><td>Read &amp; write</td><td><code>fstream f("data.txt", ios::in|ios::out);</code></td></tr>
+</table>
+<pre>ofstream fout("notes.txt");
+<span class="k">if</span>(!fout){ cerr &lt;&lt; "Could not open file\n"; <span class="k">return</span> 1; }
+fout &lt;&lt; "C++ file handling\n";
+fout.close();
+
+ifstream fin("notes.txt");  string line;
+<span class="k">while</span>(getline(fin, line)) cout &lt;&lt; line &lt;&lt; '\n';</pre>
+<ul class="star">
+<li>Open via constructor or <code>open()</code>. <b>Always check</b> that opening succeeded.</li>
+<li><code>close()</code> ends the file association. Streams also auto-close when destroyed.</li>
+</ul>
+<h3>File modes</h3>
+<table>
+<tr><th>Mode</th><th>Meaning</th><th>Note</th></tr>
+<tr><td>ios::in</td><td>Open for reading</td><td>File must be readable</td></tr>
+<tr><td>ios::out</td><td>Open for writing</td><td>Usually creates / truncates</td></tr>
+<tr><td>ios::app</td><td>Append – every write at end</td><td>Keeps old content</td></tr>
+<tr><td>ios::ate</td><td>Start positioned at end</td><td>Can seek elsewhere (unlike app)</td></tr>
+<tr><td>ios::trunc</td><td>Discard existing contents</td><td>Use only when replacing</td></tr>
+<tr><td>ios::binary</td><td>Binary (no text translation)</td><td>For byte records</td></tr>
+<tr><td>ios::in | ios::out</td><td>Read + write</td><td>File often must exist</td></tr>
+<tr><td>ios::out | ios::app</td><td>Append output</td><td>Good for logs</td></tr>
+<tr><td>ios::out | ios::binary</td><td>Binary output</td><td>Byte-oriented</td></tr>
+</table>
+<p>Combine modes with bitwise OR <code>|</code>. Always check stream state – never assume the file opened.</p>
+
+<h3>Useful file functions</h3>
+<table>
+<tr><th>Function</th><th>Purpose</th></tr>
+<tr><td>open(path, mode) / close()</td><td>Attach / detach file</td></tr>
+<tr><td>is_open()</td><td>True if file is open</td></tr>
+<tr><td>good()</td><td>No error flags set</td></tr>
+<tr><td>fail()</td><td>Operation failed / bad format</td></tr>
+<tr><td>eof()</td><td>End-of-file flag (set only <i>after</i> a read passes the end)</td></tr>
+<tr><td>bad()</td><td>Serious stream error</td></tr>
+<tr><td>clear()</td><td>Reset error flags (doesn't erase file)</td></tr>
+<tr><td>get(ch) / put(ch)</td><td>Read / write one character</td></tr>
+<tr><td>getline(...)</td><td>Read a line</td></tr>
+<tr><td>read(buf,n) / write(buf,n)</td><td>Read / write n bytes</td></tr>
+<tr><td>seekg(pos) / seekp(pos)</td><td>Move get (input) / put (output) position</td></tr>
+<tr><td>tellg() / tellp()</td><td>Report get / put position</td></tr>
+</table>
+<div class="box warn"><span class="t">End-of-file loop</span>Prefer <code>while(getline(fin,line))</code> or <code>while(fin &gt;&gt; value)</code>.<br>Avoid <code>while(!fin.eof())</code> – eofbit is set only after a failed read, so the last value may be processed twice.</div>
+
+<h2>19. Reading &amp; Writing Text Files</h2>
+<pre><span class="c">// write</span>
+ofstream fout("marks.txt");
+fout &lt;&lt; 101 &lt;&lt; ' ' &lt;&lt; "Udit" &lt;&lt; ' ' &lt;&lt; 92.5 &lt;&lt; '\n';
+fout.close();
+
+<span class="c">// read</span>
+ifstream fin("marks.txt");  <span class="k">int</span> roll{}; string name; <span class="k">double</span> marks{};
+<span class="k">if</span>(fin &gt;&gt; roll &gt;&gt; name &gt;&gt; marks) cout &lt;&lt; roll &lt;&lt; " " &lt;&lt; name &lt;&lt; " " &lt;&lt; marks;
+<span class="k">else</span> cerr &lt;&lt; "Invalid or missing record\n";</pre>
+<p>Formatted output stores a <b>text form</b> (readable). <code>&gt;&gt;</code> assumes name has <b>no spaces</b>; for spaces, use a delimited format + <code>getline</code>.</p>
+<pre><span class="k">char</span> ch;
+<span class="k">while</span>(fin.get(ch)) cout.put(ch);        <span class="c">// char-by-char; get() keeps whitespace</span></pre>
+<div class="box tip"><span class="t">Check errors</span>Failures happen (bad path, permission, disk, wrong format). Check <code>is_open()</code>, and for important output check the stream after <code>close()</code>: <code>if(!fout) cerr &lt;&lt; "Write/close failed";</code></div>
+
+<h2>20. Sequential &amp; Random Access</h2>
+<div class="two">
+<div class="box def"><span class="t">Sequential</span>Read/write records <b>in order</b>, from current position onward. Simple; good for text lines, logs.<pre>ifstream fin("numbers.txt"); <span class="k">int</span> v;
+<span class="k">while</span>(fin &gt;&gt; v) cout &lt;&lt; v;</pre></div>
+<div class="box def"><span class="t">Random</span>Jump to <b>any position</b>. Streams have a <b>get pointer</b> (input) and <b>put pointer</b> (output).<pre>file.seekg(0, ios::beg);
+file.seekp(0, ios::end);</pre></div>
+</div>
+<table>
+<tr><th>Constant</th><th>Meaning</th></tr>
+<tr><td>ios::beg</td><td>Beginning of file</td></tr>
+<tr><td>ios::cur</td><td>Current position</td></tr>
+<tr><td>ios::end</td><td>End of file</td></tr>
+</table>
+<h3>Fixed-size records</h3>
+<p>Offset of record <code>i</code> (zero-based) = <b>i × sizeof(Record)</b> — only valid if the file truly stores fixed-size records.</p>
+<pre>streamoff offset = <span class="k">static_cast</span>&lt;streamoff&gt;(index) * <span class="k">static_cast</span>&lt;streamoff&gt;(<span class="k">sizeof</span>(Record));
+file.seekg(offset, ios::beg);</pre>
+<div class="box warn"><span class="t">Caution</span><code>sizeof(Record)</code> isn't a portable file format – <b>padding, type sizes, endianness</b> and compiler can change the layout.</div>
+
+<h2>21. Binary Files</h2>
+<table>
+<tr><th>Text mode</th><th>Binary mode</th></tr>
+<tr><td>Formatted textual representation</td><td>Raw bytes, no newline translation</td></tr>
+<tr><td>Human-readable</td><td>Not human-readable</td></tr>
+<tr><td>Byte length varies for numbers</td><td>Byte count controlled by read/write</td></tr>
+<tr><td>Good for editable / shareable data</td><td>Good for raw buffers &amp; designed formats</td></tr>
+</table>
+<pre><span class="k">int</span> number = 1234;
+{ ofstream out("number.bin", ios::binary);
+  out.write(<span class="k">reinterpret_cast</span>&lt;<span class="k">const char</span>*&gt;(&amp;number), <span class="k">sizeof</span>(number)); }
+<span class="k">int</span> recovered = 0;
+{ ifstream in("number.bin", ios::binary);
+  in.read(<span class="k">reinterpret_cast</span>&lt;<span class="k">char</span>*&gt;(&amp;recovered), <span class="k">sizeof</span>(recovered)); }
+cout &lt;&lt; recovered;     <span class="c">// 1234</span></pre>
+<div class="box warn"><span class="t">Is it safe to write an object as raw bytes?</span>Only for simple types. A class with <b>pointers, std::string, virtual functions</b> or special invariants must <u>not</u> be dumped with <code>sizeof(obj)</code> – a pointer's bytes are an address, not the data it points to.</div>
+<div class="box exam"><span class="t">Exam answer ✍</span>Binary I/O uses <code>ios::binary</code> with <code>read()</code> and <code>write()</code>. Raw record: <code>write(reinterpret_cast&lt;const char*&gt;(&amp;obj), sizeof obj)</code>. Portability and type-safety depend on the object and file format.</div>
+
+<h2>22. Files with Structures &amp; Classes</h2>
+<h3>Struct → text file (field by field)</h3>
+<pre><span class="k">struct</span> StudentRecord { <span class="k">int</span> roll; string name; <span class="k">double</span> marks; };
+StudentRecord s{101, "Mira", 91.5};
+ofstream out("students.txt");
+out &lt;&lt; s.roll &lt;&lt; '\n' &lt;&lt; s.name &lt;&lt; '\n' &lt;&lt; s.marks &lt;&lt; '\n';</pre>
+<h3>Simple struct → binary (no pointers / strings)</h3>
+<pre><span class="k">struct</span> SimpleRecord { <span class="k">int</span> roll; <span class="k">double</span> marks; };
+SimpleRecord s{101, 91.5};
+ofstream out("record.bin", ios::binary);
+out.write(<span class="k">reinterpret_cast</span>&lt;<span class="k">const char</span>*&gt;(&amp;s), <span class="k">sizeof</span>(s));</pre>
+<p>Still depends on platform padding &amp; byte order – not a universal format.</p>
+<h3>Class saves itself</h3>
+<pre><span class="k">bool</span> saveText(<span class="k">const</span> string&amp; path) <span class="k">const</span>{
+    ofstream out(path);
+    <span class="k">if</span>(!out) <span class="k">return false</span>;
+    out &lt;&lt; roll &lt;&lt; '\n' &lt;&lt; name &lt;&lt; '\n' &lt;&lt; marks &lt;&lt; '\n';
+    <span class="k">return static_cast</span>&lt;<span class="k">bool</span>&gt;(out);
+}</pre>
+<p>Member function can use private fields and defines the format. Text is more readable than dumping object bytes.</p>
+
+<h2>23. Constructors</h2>
+<div class="def box"><span class="t">Constructor</span>Special member function that <b>initializes an object</b> at creation. Same name as class, <b>no return type</b>, can be <b>overloaded</b>.</div>
+<div class="two">
+<div><h3>Default</h3>
+<pre><span class="k">class</span> Point { <span class="k">int</span> x,y;
+<span class="k">public:</span> Point():x(0),y(0){} };
+Point p;</pre>
+<p>Callable with no arguments. Once you declare <i>any</i> constructor, don't assume the compiler gives you a no-arg one.</p></div>
+<div><h3>Parameterized</h3>
+<pre>Point(<span class="k">int</span> a,<span class="k">int</span> b):x(a),y(b){}
+Point p(3,7);
+Point q{4,9};</pre></div>
+</div>
+<h3>With default arguments</h3>
+<pre>Point(<span class="k">int</span> a = 0, <span class="k">int</span> b = 0) : x(a), y(b) {}
+Point p;        <span class="c">// (0,0)</span>
+Point q(5);     <span class="c">// (5,0)</span>
+Point r(5,8);   <span class="c">// (5,8)</span></pre>
+<div class="box warn"><span class="t">Ambiguity</span>Don't have both <code>Point()</code> and <code>Point(int x = 0)</code> – <code>Point p;</code> can call either → conflict.</div>
+<h3>Copy constructor</h3>
+<p>Creates a <b>new</b> object from an existing object of the same class. Signature: <code>ClassName(const ClassName&amp; other)</code>.</p>
+<pre>Point(<span class="k">const</span> Point&amp; other) : x(other.x), y(other.y) {}
+Point p(2,3);
+Point q = p;      <span class="c">// copy construction</span></pre>
+<table>
+<tr><th>Copy construction</th><th>Copy assignment</th></tr>
+<tr><td>Creates a <b>new</b> object</td><td>Replaces state of an <b>existing</b> object</td></tr>
+<tr><td><code>Point q = p;</code> (q being created)</td><td><code>q = p;</code> (q already exists)</td></tr>
+<tr><td>Controlled by copy constructor</td><td>Controlled by copy-assignment operator</td></tr>
+</table>
+<h3>Shallow-copy hazard &amp; deep copy</h3>
+<pre><span class="k">class</span> Buffer {
+    <span class="k">int</span>* data;
+<span class="k">public:</span>
+    <span class="k">explicit</span> Buffer(<span class="k">int</span> value) : data(<span class="k">new int</span>(value)) {}
+    Buffer(<span class="k">const</span> Buffer&amp; other) : data(<span class="k">new int</span>(*other.data)) {}   <span class="c">// DEEP copy</span>
+    ~Buffer(){ <span class="k">delete</span> data; }
+};</pre>
+<div class="box key"><span class="t">Rule of Three</span>If a class needs a custom <b>destructor</b>, <b>copy constructor</b> or <b>copy-assignment</b>, it usually needs <u>all three</u>. <b>Rule of Zero</b>: let standard RAII types manage ownership instead.</div>
+
+<h2>24. Member Initializer Lists</h2>
+<p>Initializes base classes &amp; data members <b>before</b> the constructor body. Written after a colon.</p>
+<pre>Rectangle(<span class="k">int</span> l, <span class="k">int</span> w) : length(l), width(w) {}</pre>
+<div class="box tip"><span class="t">Required for…</span>✔ <b>reference</b> members &nbsp; ✔ <b>const</b> members &nbsp; ✔ members with <b>no default constructor</b>. Also better for efficiency &amp; ownership.</div>
+<div class="box warn"><span class="t">Initialization order</span>Members are initialized in <b>declaration order</b> in the class – <u>not</u> the order written in the list. Write the list in declaration order.</div>
+<pre><span class="k">class</span> Example { <span class="k">int</span> first; <span class="k">int</span> second;
+<span class="k">public:</span> Example() : first(1), second(first + 1) {} };   <span class="c">// ok: first declared first</span>
+
+<span class="k">class</span> Record { <span class="k">const int</span> id; <span class="k">int</span>&amp; externalValue;
+<span class="k">public:</span> Record(<span class="k">int</span> i, <span class="k">int</span>&amp; v) : id(i), externalValue(v) {} };</pre>
+
+<h2>25. Destructors &amp; Object Lifetime</h2>
+<div class="def box"><span class="t">Destructor</span>Called when an object's lifetime <b>ends</b> (leaves scope / <code>delete</code>). Name <code>~ClassName</code>, <b>no return type, no parameters</b> → only <b>one</b> per class (no overloading).</div>
+<pre><span class="k">class</span> Demo { <span class="k">public:</span>
+    Demo(){ cout &lt;&lt; "Constructed\n"; }
+    ~Demo(){ cout &lt;&lt; "Destroyed\n"; } };
+<span class="k">int</span> main(){ Demo d; cout &lt;&lt; "Inside main\n"; }   <span class="c">// d destroyed at closing }</span></pre>
+<div class="diagram">Output:  Constructed
+         Inside main
+         Destroyed</div>
+<h3>Order</h3>
+<ul class="arrow">
+<li>Member subobjects are constructed in <b>declaration order</b>, destroyed in <b>reverse</b>.</li>
+<li>Arrays of objects: destroyed in <b>reverse</b> order of construction.</li>
+</ul>
+<h3>Why destructors matter</h3>
+<ul class="star">
+<li>Release resources the object owns (memory, file handle).</li>
+<li>Pair <b>acquire in constructor</b> ↔ <b>release at end of life</b>.</li>
+<li>Prefer resource-managing types (<code>string</code>, <code>vector</code>, file streams).</li>
+</ul>
+<p class="sticky pink">ifstream / ofstream / fstream close their file automatically in the destructor! Explicit close() is still handy to close at a chosen time or check status.</p>
+<table>
+<tr><th>Constructor</th><th>Destructor</th></tr>
+<tr><td>Initializes a new object</td><td>Cleans up when lifetime ends</td></tr>
+<tr><td>Same name as class, no return type</td><td>~ClassName, no return type</td></tr>
+<tr><td>Can be overloaded</td><td>Cannot be overloaded; no parameters</td></tr>
+<tr><td>May take params / defaults</td><td>Takes no parameters</td></tr>
+<tr><td>Sets up invariants, acquires resources</td><td>Releases owned resources</td></tr>
+</table>
+
+<h2>26. Object + File Example</h2>
+<pre><span class="k">bool</span> save(<span class="k">const</span> string&amp; filename) <span class="k">const</span>{
+    ofstream out(filename);
+    <span class="k">if</span>(!out) <span class="k">return false</span>;
+    out &lt;&lt; roll &lt;&lt; '\n' &lt;&lt; name &lt;&lt; '\n' &lt;&lt; marks &lt;&lt; '\n';
+    <span class="k">return static_cast</span>&lt;<span class="k">bool</span>&gt;(out);
+}
+<span class="k">bool</span> load(<span class="k">const</span> string&amp; filename){
+    ifstream in(filename);
+    <span class="k">if</span>(!in) <span class="k">return false</span>;
+    <span class="k">int</span> r; string n; <span class="k">double</span> m;                       <span class="c">// temporaries first</span>
+    <span class="k">if</span>(!(in &gt;&gt; r)) <span class="k">return false</span>;
+    in.ignore(numeric_limits&lt;streamsize&gt;::max(), '\n');
+    <span class="k">if</span>(!getline(in, n) || !(in &gt;&gt; m)) <span class="k">return false</span>;
+    roll = r; name = n; marks = m;                  <span class="c">// update only if ALL read OK</span>
+    <span class="k">return true</span>;
+}</pre>
+<div class="box key"><span class="t">Design lesson</span><code>load</code> reads into <b>temporary variables first</b>, then updates the object – so a bad file never leaves it half-updated. Text formats are readable &amp; easy to inspect; binary is compact but needs a deliberate, validated format.</div>
+
+<div class="revision">
+<h3>⚡ Unit III – Rapid Revision</h3>
+<ul class="star">
+<li><code>&lt;fstream&gt;</code>: ifstream (in), ofstream (out), fstream (both). <b>Always check open success.</b></li>
+<li>in = read • out = write • app = write at end • ate = start at end • binary = binary mode • trunc = discard contents.</li>
+<li>Use <code>while(fin &gt;&gt; v)</code> / <code>while(getline(...))</code>, not <code>!eof()</code>.</li>
+<li><code>seekg/tellg</code> = input position • <code>seekp/tellp</code> = output position.</li>
+<li><code>read()/write()</code> move bytes; raw object dumps aren't automatically safe/portable.</li>
+<li>Constructor initializes; destructor cleans up.</li>
+<li>Copy construction = new object from another; copy assignment = update existing.</li>
+<li>Initializer lists run before the body, in <b>declaration</b> order.</li>
+<li>Raw owning pointers need deliberate copy &amp; destruction; prefer RAII.</li>
+</ul></div>
+
+<!-- ================= EXAM ================= -->
+<div class="unit ex">EXAM TOOLKIT<small>Practice • Traps • Cheat Sheet</small></div>
+<p>These are <b>practice prompts</b> from your syllabus, not a prediction of the real paper.</p>
+
+<h2>Short-answer practice</h2>
+<div class="two">
+<div>
+<h3>Unit I</h3>
+<ul>
+<li>Define OOP; explain encapsulation, abstraction, polymorphism with examples.</li>
+<li>Procedural vs OOP.</li>
+<li>Class &amp; object; public/private/protected.</li>
+<li>struct vs union vs enum.</li>
+<li>Inline vs non-inline member functions – is inline guaranteed faster?</li>
+<li>Static data members &amp; functions with a program.</li>
+<li>Default arguments &amp; manipulators (setw, setprecision).</li>
+<li>Overloading &amp; scope resolution – why not by return type?</li>
+<li>Friend function vs friend class.</li>
+<li>Call by value / address / reference.</li>
+<li>Recursion – write &amp; trace factorial/sum.</li>
+</ul>
+</div>
+<div>
+<h3>Unit II</h3>
+<ul>
+<li>Pointer; &amp;, *, nullptr, assignment.</li>
+<li>Wild vs null vs dangling.</li>
+<li>void*, pointer arithmetic, pointer-to-pointer.</li>
+<li><code>this</code> pointer; <code>.</code> vs <code>-&gt;</code>.</li>
+<li>Shallow vs deep copy.</li>
+<li>1D &amp; 2D arrays; row-major layout.</li>
+<li>Array of objects; arrays inside a class.</li>
+<li>std::string + six member functions.</li>
+<li>Pointer vs reference.</li>
+<li>Pointer-to-data-member; <code>.*</code> and <code>-&gt;*</code>.</li>
+</ul>
+</div>
+</div>
+<h3>Unit III</h3>
+<ul>
+<li>ifstream, ofstream, fstream.</li>
+<li>File modes: in, out, app, ate, trunc, binary.</li>
+<li>open(), close(), is_open(), eof(), fail(), read(), write().</li>
+<li>Sequential vs random access.</li>
+<li>Program to write &amp; read values from a text file.</li>
+<li>Binary file I/O – why dumping any class as raw bytes is unsafe.</li>
+<li>File handling with structure / class.</li>
+<li>Default, parameterized, copy &amp; default-argument constructors.</li>
+<li>Constructor vs destructor; order of execution.</li>
+<li>Member initializer lists &amp; initialization order.</li>
+</ul>
+
+<h2>Programming problems</h2>
+<ol start="1">
+<li>Student class: private roll &amp; marks, public setters, display, average/grade function.</li>
+<li>Function overloading: int, double, and a 3-argument overload.</li>
+<li>Swap with call by value, pointer &amp; reference – which can change the caller?</li>
+<li>Recursive factorial; trace for n = 4.</li>
+<li>Traverse an int array with pointers and compute the sum.</li>
+<li>Class with static counter incremented per constructed object.</li>
+<li>std::string: join first + last name, search a substring, extract a substring.</li>
+<li>3×3 matrix: print row sums &amp; column sums.</li>
+<li>Save a student record to a text file and read it back.</li>
+<li>Class owning a dynamic int with correct deep-copy constructor + destructor.</li>
+</ol>
+
+<h2>Output tracing – try before checking!</h2>
+<div class="two">
+<div>
+<pre><span class="c">// Q1</span>
+<span class="k">int</span> x=4; <span class="k">int</span>* p=&amp;x;
+*p = *p + 3;  cout &lt;&lt; x;
+
+<span class="c">// Q2</span>
+<span class="k">void</span> f(<span class="k">int</span> x){ x=50; }
+<span class="k">int</span> main(){ <span class="k">int</span> a=2; f(a); cout&lt;&lt;a; }
+
+<span class="c">// Q3</span>
+<span class="k">void</span> f(<span class="k">int</span>&amp; x){ x=50; }
+<span class="k">int</span> main(){ <span class="k">int</span> a=2; f(a); cout&lt;&lt;a; }</pre>
+</div>
+<div>
+<pre><span class="c">// Q4</span>
+<span class="k">int</span> a[]={2,4,6};
+<span class="k">int</span>* p=a;
+cout &lt;&lt; *(p+2);
+
+<span class="c">// Q5</span>
+string s = "robot";
+s.replace(1, 2, "XX");
+cout &lt;&lt; s;</pre>
+</div>
+</div>
+<table>
+<tr><th>Q</th><th>Answer</th><th>Reason</th></tr>
+<tr><td>Q1</td><td><b>7</b></td><td>p points to x; *p updates x</td></tr>
+<tr><td>Q2</td><td><b>2</b></td><td>x is a copy; a unchanged</td></tr>
+<tr><td>Q3</td><td><b>50</b></td><td>x is a reference to a</td></tr>
+<tr><td>Q4</td><td><b>6</b></td><td>p+2 → a[2]</td></tr>
+<tr><td>Q5</td><td><b>rXXot</b></td><td>Replace 2 chars starting at index 1</td></tr>
+</table>
+
+<h2>Mistakes that lose marks ✘</h2>
+<div class="box warn">
+<ul>
+<li>Writing a <b>return type</b> on a constructor/destructor.</li>
+<li>Using a pointer before initialization, or dereferencing <code>nullptr</code>.</li>
+<li>Accessing a <b>private</b> member directly from <code>main</code>.</li>
+<li>Two overloads that differ only by <b>return type</b>.</li>
+<li>Recursion with <b>no base case</b> or no progress.</li>
+<li>Thinking pointer arithmetic moves 1 byte, or that <code>void*</code> can be dereferenced.</li>
+<li>Out-of-bounds index – last valid index is <b>size − 1</b>.</li>
+<li>Using <code>while(!file.eof())</code> to read records.</li>
+<li>Dumping a class with <b>string/pointers</b> into a binary file.</li>
+<li>Forgetting to deep-copy / destroy a raw owning pointer.</li>
+</ul></div>
+
+<h2>One-page syntax sheet 📌</h2>
+<table>
+<tr><th>Task</th><th>Syntax / reminder</th></tr>
+<tr><td>Class / object</td><td><code>class X { public: void f(); }; X obj; obj.f();</code></td></tr>
+<tr><td>Out-of-class definition</td><td><code>void X::f() { ... }</code></td></tr>
+<tr><td>Pointer</td><td><code>int x=5; int* p=&amp;x; cout &lt;&lt; *p;</code></td></tr>
+<tr><td>Pointer to pointer</td><td><code>int** pp=&amp;p; cout &lt;&lt; **pp;</code></td></tr>
+<tr><td>Object pointer</td><td><code>X* px=&amp;obj; px-&gt;f();</code></td></tr>
+<tr><td>Reference</td><td><code>int&amp; r=x; r=8;</code></td></tr>
+<tr><td>Default argument</td><td><code>void f(int a, int b = 10);</code></td></tr>
+<tr><td>Overload</td><td><code>int f(int); double f(double);</code></td></tr>
+<tr><td>Static member</td><td><code>static int count;</code> → <code>int X::count = 0;</code></td></tr>
+<tr><td>Friend function</td><td><code>friend void inspect(const X&amp;);</code></td></tr>
+<tr><td>Recursion</td><td><code>if(base) return value; return step * f(smaller);</code></td></tr>
+<tr><td>2D array</td><td><code>int a[rows][cols]; a[r][c];</code></td></tr>
+<tr><td>String line</td><td><code>string s; getline(cin, s);</code></td></tr>
+<tr><td>File input</td><td><code>ifstream in("a.txt"); while(getline(in,line)){...}</code></td></tr>
+<tr><td>File output</td><td><code>ofstream out("a.txt"); out &lt;&lt; value &lt;&lt; '\n';</code></td></tr>
+<tr><td>Binary write</td><td><code>out.write(reinterpret_cast&lt;const char*&gt;(&amp;x), sizeof x);</code></td></tr>
+<tr><td>Constructor</td><td><code>X(int v) : member(v) {}</code></td></tr>
+<tr><td>Copy constructor</td><td><code>X(const X&amp; other) : member(other.member) {}</code></td></tr>
+<tr><td>Destructor</td><td><code>~X() { /* release owned resources */ }</code></td></tr>
+<tr><td>Member pointer</td><td><code>int X::* pm=&amp;X::n; obj.*pm; ptr-&gt;*pm;</code></td></tr>
+</table>
+
+<h2>Glossary 📖</h2>
+<table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Abstraction</td><td>Simple interface, hidden details</td></tr>
+<tr><td>Address</td><td>Location of an object in memory</td></tr>
+<tr><td>Array</td><td>Fixed-size contiguous sequence of one type</td></tr>
+<tr><td>Class</td><td>User-defined type with data + functions</td></tr>
+<tr><td>Constructor</td><td>Initializes an object</td></tr>
+<tr><td>Destructor</td><td>Runs when object lifetime ends</td></tr>
+<tr><td>Encapsulation</td><td>Bundling data + operations with access control</td></tr>
+<tr><td>File stream</td><td>Stream connected to a file</td></tr>
+<tr><td>Friend</td><td>Non-member given access to private/protected members</td></tr>
+<tr><td>Member initializer list</td><td>Initializes data members/base classes before body</td></tr>
+<tr><td>Object</td><td>Instance of a class</td></tr>
+<tr><td>Pointer</td><td>Variable storing an address</td></tr>
+<tr><td>Polymorphism</td><td>One name/interface, many behaviours</td></tr>
+<tr><td>Reference</td><td>Alias of an existing object</td></tr>
+<tr><td>Recursion</td><td>Function solving a problem by calling itself on a smaller case</td></tr>
+<tr><td>Scope</td><td>Region where a name is visible</td></tr>
+<tr><td>Static member</td><td>Belongs to the class, not each object</td></tr>
+<tr><td>Manipulator</td><td>Formatting/control utility applied to a stream</td></tr>
+<tr><td>Undefined behaviour</td><td>Standard imposes no requirements on the result</td></tr>
+</table>
+
+<div class="box key">
+  <span class="t">★ Final Study Strategy</span>
+  First master: <b>class/object syntax, parameter passing, pointers, strings, file modes, constructor vs destructor</b>. Then write <em>at least one full program from each unit</em> and say the short answers out loud. Your class slides &amp; lecturer's terms are the final exam authority.
+</div>
+
+<div class="footer">~ All the best for your Mid-Term! ~ ✨</div>
+
+</div>
+</body>
+</html>
