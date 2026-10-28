@@ -8,7 +8,7 @@ class A{
     }A(float t){
         y=t;
     }
-}
+};
 int main(){
     int a=10;
     float b=10.3;
@@ -19,4 +19,5 @@ int main(){
     cout<<"a= "<<a<<endl;
     a=c;
     cout<<"a= "<<a<<endl;
+    return 0;
 }
