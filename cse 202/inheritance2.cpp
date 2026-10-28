@@ -28,5 +28,5 @@ int main(){
     num2 obj;
     obj.getB();
     obj.getA();
-    
+    obj.mul();
 }
