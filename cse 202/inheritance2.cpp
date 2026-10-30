@@ -30,3 +30,4 @@ int main(){
     obj.getA();
     obj.mul();
 }
+//Ambigity and divergent inheritance learn it 
