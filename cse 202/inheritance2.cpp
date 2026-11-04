@@ -31,3 +31,4 @@ int main(){
     obj.mul();
 }
 //Ambigity and divergent inheritance learn it 
+//lets practice questions
