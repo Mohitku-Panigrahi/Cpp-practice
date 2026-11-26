@@ -10,6 +10,14 @@ int main(){
     cout<<"enter 2 integer Values ";
     cin>>num1>>num2;
     resultInt=sum(num1,num2);
-    
+    cout<<"The sum "<<resultInt<<endl;
+    cout<<"enter 2 double Values ";
+    cin>>num3>>num4;
+    resultDou=sum(num3,num4);
+    cout<<"The sum "<<resultDou<<endl;
+    cout<<"enter 2 double Values ";
+    cin>>num5>>num6;
+    resultChar=sum(num5,num6);
+    cout<<"The sum "<<resultChar<<endl;
 }
 
