@@ -18,6 +18,8 @@
 
 //     obj1.Area();
 // }
+
+
 // // Create a class Employee with:
 // // - Employee ID and salary.
 // // - Parameterized constructor.
@@ -47,3 +49,28 @@
 //     obj2.display();
 //     return 0;
 // }
+
+
+#include<iostream>
+using namespace std;
+class Summ{
+    int a,b;
+    Summ(int s,int v): a(s),b(v){
+        cout<<"Done initialised"<<endl;
+    }
+    Summ operator+(Summ obj){
+        Summ temp(0,0);
+        temp.a= a+obj.a;
+        temp.b=b+obj.b;
+        return temp;
+    }
+    void display(){
+        cout<<a<<"+"<<b<<endl;
+    }
+};
+int main(){
+    Summ obj1(2,3);
+    Summ obj2(4,5);
+    Summ obj3= obj1 + obj2;
+    obj3.display();
+}
