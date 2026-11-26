@@ -35,20 +35,26 @@ using namespace std;
 // }
 
 
-template<class T1,class T2>
-void swap1(T1 x,T2 y){
-    cout<<"before swapping x= "<<x<<" and y= "<<y<<endl;
-    auto temp;
-    temp= x;
-    x = y;
-    y = temp;
-    cout<<"after swapping x= "<<x<<" and y= "<<y<<endl;
-}
+// template<class T1,class T2>
+// void swap1(T1 x,T2 y){
+//     cout<<"before swapping x= "<<x<<" and y= "<<y<<endl;
+//     auto temp;
+//     temp= x;
+//     x = y;
+//     y = temp;
+//     cout<<"after swapping x= "<<x<<" and y= "<<y<<endl;
+// }
 
-int main(){
-    int a= 10; double b=20.3; char c='a';
-    swap1(a,b);
-    swap1(b,c);
-    swap1(c,a);
+// int main(){
+//     int a= 10; double b=20.3; char c='a';
+//     swap1(a,b);
+//     swap1(b,c);
+//     swap1(c,a);
 
-}
+// }
+
+// template<class T1>
+// void Maxnum(T1 x,T1 y){
+
+// }
+
