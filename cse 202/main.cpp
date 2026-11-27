@@ -18,5 +18,3 @@ class abc{
     abc<float> obj1(10.2,34.7); cout<<"\nmax value is "<<obj1.max1();
     abc<char> obj2('A','a'); cout<<"\nmax value is "<<obj2.max1();
  }
-
- 
